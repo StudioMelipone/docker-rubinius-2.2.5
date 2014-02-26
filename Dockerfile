@@ -1,4 +1,4 @@
-FROM phusion/baseimage
+FROM phusion/baseimage:0.9.8
 MAINTAINER Loïc Guitaut <loic@studiomelipone.eu>
 
 ENV LANG en_US.UTF-8
@@ -22,7 +22,7 @@ RUN wget -O - https://github.com/postmodern/ruby-install/archive/v0.4.0.tar.gz |
 
 # Install rubinius 2.2.5
 RUN ruby-install rbx 2.2.5 && apt-get clean
-ENV PATH /opt/rubies/rbx-2.2.5/bin:$PATH
+ENV PATH /opt/rubies/rbx-2.2.5/bin:/opt/rubies/rbx-2.2.5/gems/bin/:$PATH
 RUN gem install --no-rdoc --no-ri rubysl-tracer rake bundler
 
 # Install memcached
