@@ -44,6 +44,9 @@ ADD rc.local /etc/rc.local
 # Enable insecure key to easily use ssh
 RUN /usr/sbin/enable_insecure_key
 
+# Pry config file to have a good looking console
+ADD pryrc /root/.pryrc
+
 WORKDIR /rails_app
 ADD rails.sh /root/
 CMD ["/sbin/my_init", "/root/rails.sh"]
