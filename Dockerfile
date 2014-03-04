@@ -22,14 +22,15 @@ RUN wget -O - https://github.com/postmodern/ruby-install/archive/v0.4.0.tar.gz |
 
 # Install rubinius 2.2.5
 RUN ruby-install rbx 2.2.5 && apt-get clean
-ENV PATH /opt/rubies/rbx-2.2.5/bin:/opt/rubies/rbx-2.2.5/gems/bin/:$PATH
+ENV PATH /opt/rubies/rbx-2.2.5/bin:/opt/rubies/rbx-2.2.5/gems/bin:$PATH
 RUN gem install --no-rdoc --no-ri rubysl-tracer rake bundler
+RUN sed -i '1s/^/PATH=\/opt\/rubies\/rbx-2.2.5\/bin:\/opt\/rubies\/rbx-2.2.5\/gems\/bin:$PATH\n/' /root/.bashrc
 
 # Install memcached
 RUN apt-get install -y memcached && apt-get clean
 ADD memcached.sh /etc/my_init.d/
 
-# Install Redis and make sure to not run it daemonized
+# Install Redis
 RUN apt-get install -y redis-server && apt-get clean
 ADD redis.sh /etc/my_init.d/
 
